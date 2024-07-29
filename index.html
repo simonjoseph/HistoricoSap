@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<body>
+  Dados do Utente
+  Codigo Sap : <input type="text" id="num_processo_sap" value=""> <br>
+  Nome: <input type="text" id="nome_utente" value=""> <br>
+  Idade: <input type="text" id="idade" value=""> <br>
+  Gernero: <input type="text" id="idade" value=""> <br>
+</body>
+<script src="./axios.min.js"></script>
+<script>
+const input = document.querySelector('#num_processo_sap');
+const nome_utente = document.querySelector('#nome_utente');
+
+input.addEventListener('blur', function() {
+  var value = input.value;
+  console.log(value)
+
+
+axios.get(`http://172.22.0.136:5000/utente_history/utente/${value}`)
+  .then(response => {
+    const utente = response.data[0];
+    nome_utente.value = utente.NM_PACIENTE;
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+</script>
+</html>
